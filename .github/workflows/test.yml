@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: navneet78/myapp_terrakube:v1
+  IMAGE_NAME: navneet78/myapp_terrakube
+  IMAGE_TAG: v1
 
 jobs:
   build-and-deploy:
@@ -20,8 +21,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Set dynamic tag
-      run: echo "IMAGE_TAG=v${{ github.run_number }}" >> $GITHUB_ENV
+  
 
     - name: Build and Push image
       run: |
