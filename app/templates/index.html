@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>App Status</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 App Deployment Info</h1>
+    <ul>
+      <li><strong>Deployment:</strong> {{ deployment_name }}</li>
+      <li><strong>Image Version:</strong> {{ image_version }}</li>
+      <li><strong>Status:</strong> <span class="status">{{ status }}</span></li>
+      <li><strong>Updated:</strong> {{ timestamp }}</li>
+    </ul>
+  </div>
+</body>
+</html>
