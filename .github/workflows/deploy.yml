@@ -9,7 +9,7 @@ jobs:
 
     env:
       IMAGE_NAME: navneet78/myapp_terrakube
-      IMAGE_TAG: v1
+      IMAGE_TAG: latest
 
     steps:
     - name: Checkout code
@@ -32,8 +32,8 @@ jobs:
         host: ${{ secrets.VM_PUBLIC_IP}}
         username: ${{ secrets.VM_USERNAME }}
         key: ${{ secrets.VM_PRIVATE_KEY }}
-        source: "./terraform/"
-        target: "/home/${{ secrets.VM_USER }}/project/terraform"
+        source: "./terraform/*"
+        target: "/home/${{ secrets.VM_USERNAME }}/project/terraform"
 
     - name: SSH and Run Terraform Apply
       uses: appleboy/ssh-action@v1.0.0
