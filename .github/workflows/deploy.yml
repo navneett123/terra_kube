@@ -1,4 +1,4 @@
-name: Deploy to Minikube
+name: Terraform_Kube
 
 on:
   workflow_dispatch:
