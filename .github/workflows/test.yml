@@ -1,0 +1,12 @@
+# .github/workflows/test.yml
+name: Test Trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello from GitHub Actions
+        run: echo "🎉 GitHub Actions is working!"
