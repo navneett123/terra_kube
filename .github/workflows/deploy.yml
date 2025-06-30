@@ -1,41 +1,41 @@
-name: TerraKube Auto Deploy
+# name: TerraKube Auto Deploy
 
-on:
-  workflow_dispatch:
+# on:
+#   workflow_dispatch:
 
-env:
-  IMAGE_NAME: navneet78/myapp_terrakube:v1
+# env:
+#   IMAGE_NAME: navneet78/myapp_terrakube:v1
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
 
-    - name: DockerHub Login
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+#     - name: DockerHub Login
+#       uses: docker/login-action@v3
+#       with:
+#         username: ${{ secrets.DOCKERHUB_USERNAME }}
+#         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Set dynamic tag
-      run: echo "IMAGE_TAG=v${{ github.run_number }}" >> $GITHUB_ENV
+#     - name: Set dynamic tag
+#       run: echo "IMAGE_TAG=v${{ github.run_number }}" >> $GITHUB_ENV
 
-    - name: Build and Push image
-      run: |
-        docker build -t $IMAGE_NAME:$IMAGE_TAG .
-        docker push $IMAGE_NAME:$IMAGE_TAG
+#     - name: Build and Push image
+#       run: |
+#         docker build -t $IMAGE_NAME:$IMAGE_TAG .
+#         docker push $IMAGE_NAME:$IMAGE_TAG
 
-    - name: SSH and Run Terraform Apply
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.VM_PUBLIC_IP }}
-        username: ${{ secrets.VM_USERNAME }}
-        key: ${{ secrets.VM_PRIVATE_KEY }}
-        script: |
-          cd /home/${{ secrets.VM_USERNAME }}/project/terraform
-          export TF_VAR_image_tag=$IMAGE_TAG
-          terraform init -input=false
-          terraform apply -auto-approve -input=false
+#     - name: SSH and Run Terraform Apply
+#       uses: appleboy/ssh-action@v1.0.0
+#       with:
+#         host: ${{ secrets.VM_PUBLIC_IP }}
+#         username: ${{ secrets.VM_USERNAME }}
+#         key: ${{ secrets.VM_PRIVATE_KEY }}
+#         script: |
+#           cd /home/${{ secrets.VM_USERNAME }}/project/terraform
+#           export TF_VAR_image_tag=$IMAGE_TAG
+#           terraform init -input=false
+#           terraform apply -auto-approve -input=false
