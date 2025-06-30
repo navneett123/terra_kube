@@ -4,7 +4,8 @@
 #   workflow_dispatch:
 
 # env:
-#   IMAGE_NAME: navneet78/myapp_terrakube:v1
+#   IMAGE_NAME: navneet78/myapp_terrakube
+#   IMAGE_TAG: v1
 
 # jobs:
 #   build-and-deploy:
@@ -20,8 +21,17 @@
 #         username: ${{ secrets.DOCKERHUB_USERNAME }}
 #         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-#     - name: Set dynamic tag
-#       run: echo "IMAGE_TAG=v${{ github.run_number }}" >> $GITHUB_ENV
+   
+#     - name: Copy Terraform files to VM
+#       uses: appleboy/scp-action@v0.1.4
+#       with:
+#         host: ${{ secrets.VM_PUBLIC_IP }}
+#         username: ${{ secrets.VM_USERNAME }}
+#         key: ${{ secrets.VM_PRIVATE_KEY }}
+#         port: 22
+#         source: "./terraform/"
+#         target: "/home/${{ secrets.VM_USERNAME }}/project/terraform/"
+
 
 #     - name: Build and Push image
 #       run: |
